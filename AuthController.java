@@ -120,19 +120,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-
-    @CrossOrigin("*")
-    @DeleteMapping("/delete")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> deleteUser() {
-
-        UserDetailsImpl userDetails =
-                (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long userId = userDetails.getId();
-
-        userRepository.deleteById(userId);
-
-        return ResponseEntity.ok(new MessageResponse("User deleted successfully."));
-    }
-
 }
